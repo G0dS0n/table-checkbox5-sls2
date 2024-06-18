@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <title>Table</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 17px;
+        font-family: "Merriweather Sans", sans-serif;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      td {
+        font-weight: 100;
+      }
+
+      th {
+        background-color: #b97c0f !important;
+        padding: 15px;
+      }
+
+      input[type="checkbox"] {
+        margin: 4px;
+      }
+
+      input[type="checkbox"]:disabled {
+        opacity: 0.5;
+      }
+
+      input[type="checkbox"]:disabled:checked {
+        background-color: green;
+      }
+
+      input[type="checkbox"]:disabled:not(:checked) {
+        background-color: red;
+      }
+
+      #download-btn {
+        padding: 15px;
+        background-color: #b97c0f;
+        margin-top: 10px;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      #download-btn.clicked {
+        background-color: #4caf50; /* Change to your desired color */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
+      }
+
+      /* Add a slight shadow when hovering over the button */
+      #download-btn:hover {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); /* Adjust the shadow as needed */
+      }
+    </style>
+  </head>
+  <body>
+     <table>
+      <thead>
+        <tr>
+          <th>Cooperation</th>
+          <th>Sometimes</th>
+          <th>Mostly</th>
+          <th>Consistently</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4"><strong>Contributes to a positive team environment</strong></td>
+        </tr>
+
+        <tr>
+          <td> Everyone shows willingness to work as a team</td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>
+            Difference in opinions are resolved effectively
+          </td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>Team members do not exhibit confidence and trust in each other*</td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td colspan="4"><strong>Alignment of efforts and mangement of conflict</strong></td>
+        </tr>
+        <tr>
+          <td>Everyone is following team objectives without opting for independence</td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>
+            Individuals are creating unnecessary conflicts*
+          </td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="download-btn">Download as an image</button>
+    <script>
+      // Wait for the DOM to load
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get the download button and table elements
+        const downloadBtn = document.getElementById("download-btn");
+        const table = document.querySelector("table");
+
+        // Add a click event listener to the download button
+        downloadBtn.addEventListener("click", () => {
+          downloadBtn.classList.add("clicked");
+          setTimeout(() => {
+            downloadBtn.classList.remove("clicked");
+          }, 300);
+          // Use html2canvas to capture the table as an image
+          html2canvas(table).then((canvas) => {
+            // Create a link element to trigger the download
+            const link = document.createElement("a");
+
+            // Set attributes for the link
+            link.href = canvas.toDataURL();
+            link.download = "communication-table.png";
+
+            // Append the link to the document and trigger a click event
+            document.body.appendChild(link);
+            link.click();
+
+            // Remove the link from the document
+            document.body.removeChild(link);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
